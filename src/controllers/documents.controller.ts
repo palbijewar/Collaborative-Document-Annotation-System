@@ -32,7 +32,6 @@ export async function createPdfDocument(req: any, res: Response) {
       process.env.MONGO_URI!,
       req.file
     );
-    console.log("✅ GridFS upload result:", uploadResult);
 
     const doc = await Document.create({
       title,
