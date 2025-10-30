@@ -24,8 +24,7 @@ export async function createPdfDocument(req: any, res: Response) {
   if (!req.file) return res.status(400).json({ error: "No file uploaded" });
 
   const { title, linearText } = req.body;
-  if (!title || !linearText)
-    return res.status(400).json({ error: "Title & text required" });
+  if (!title) return res.status(400).json({ error: "Title is required" });
 
   try {
     const uploadResult: any = await uploadToGridFS(
@@ -36,7 +35,7 @@ export async function createPdfDocument(req: any, res: Response) {
     const doc = await Document.create({
       title,
       type: "PDF",
-      linearText,
+      linearText: linearText || "", 
       fileId: uploadResult._id,
     });
 
